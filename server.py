@@ -2,6 +2,7 @@ import socket
 from datetime import datetime
 from pathlib import Path
 from wsgiref.handlers import format_date_time
+from threading import Thread
 
 
 ROOT = 'www'
@@ -54,7 +55,7 @@ def _main():
         while True:
             conn, addr = sock.accept()
             print("Connected", addr)
-            handle(conn)
+            Thread(target=handle, args=[conn]).start()
 
 
 if __name__ == '__main__':

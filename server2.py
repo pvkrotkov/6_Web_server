@@ -28,7 +28,7 @@ def work_with_client(conn):
         resp += "204 No Content"
     elif line1[0] == "HEAD": # тела ответа не будет
       text = ""
-    elif line1[0] == "PUT" # если запрос PUT
+    elif line1[0] == "PUT": # если запрос PUT
       bodystart=msg.index("")+1 # ищем в теле запроса текст и добавляем его в соответствующий файл
       if line1[1].exists():
         if bodystart+1<len(msg)-1:

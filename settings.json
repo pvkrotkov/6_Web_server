@@ -1,0 +1,6 @@
+{
+  "port": 80,
+  "alternate_port": 8080,
+  "directory": "index",
+  "size": 16384
+}

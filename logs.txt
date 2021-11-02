@@ -1,0 +1,12 @@
+Date: 1635880658.854293
+IP-address: 127.0.0.1
+File path: index\index.html
+
+Date: 1635880658.918354
+IP-address: 127.0.0.1
+Error: 404
+
+Date: 1635880660.961496
+IP-address: 127.0.0.1
+File path: index\index.html
+

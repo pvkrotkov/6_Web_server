@@ -28,8 +28,8 @@ def handler(request, addr):
 def connection(conn, addr):
     with conn:
         data = conn.recv(MAX)
-        if data == b"":
-            conn.close()
+        # if data == b"":
+        #     conn.close()
         request = data.decode()
         print(request)
         resp = handler(request, addr)

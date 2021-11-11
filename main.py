@@ -14,7 +14,7 @@ def sendClient(file_content, code, content_type, conn):
     Date: {datetime.now()}
     Content-Type: {content_type}
     Server: Seminar9
-    Content-Length: {len(file_content)}
+    Content-Length: {len(file_content.encode("utf-8"))}
     Connection: close\n"""
 
     print(http_answer)

@@ -29,7 +29,7 @@ resp = f"""HTTP/1.1 200 OK
 Date: {nowdate}
 Content-length: {content_length}
 Server: SelfMadeServer v0.0.1
-Content-type: text/html; sharset = utf8
+Content-type: text/html; charset = utf8
 Connection: close
 
 {content}"""

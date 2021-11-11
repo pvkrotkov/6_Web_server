@@ -1,4 +1,5 @@
 import socket
+import datetime
 
 sock = socket.socket()
 
@@ -19,12 +20,19 @@ msg = data.decode()
 
 print(msg)
 
-resp = """HTTP/1.1 200 OK
+
+nowdate = datetime.datetime.utcnow().strftime(r"%a, %d %b %Y %H:%M:%S GMT")
+print(nowdate)
+content = "Hello, webworld!"
+content_length = len(content)
+resp = f"""HTTP/1.1 200 OK
+Date: {nowdate}
+Content-length: {content_length}
 Server: SelfMadeServer v0.0.1
-Content-type: text/html
+Content-type: text/html; sharset = utf8
 Connection: close
 
-Hello, webworld!"""
+{content}"""
 
 conn.send(resp.encode())
 

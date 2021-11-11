@@ -1,31 +1,136 @@
+import datetime as d
+#from d.datetime import today, date
+import os
+from contextlib import closing
 import socket
 
-sock = socket.socket()
+import threading
 
+
+def logging (name, errorc, date, ipe):#, nom
+    f = open(log_nam, 'a')
+    f.write(date+' '+ipe+' '+name+' '+errorc+'\n')
+    f.close()
+'''
+Сервер должен вести логи в следующем формате: Дата запроса. 
+IP-адрес клиента, имя запрошенного файла, код ошибки.
+'''
+
+def find_free_port(nastroip):
+    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
+        s.bind((nastroip, 0))
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        return s.getsockname()[1]
+def file_reader(name):
+    file = open(name, 'r')
+    content = file.read()
+    file.close()
+    return content
+
+
+nastroi=[]
+with open ('nastroika.txt', 'r') as f:
+    for i in f:
+        nastroi.append(i.split(': ')[1][:-1])
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+nastroi[0]=int(nastroi[0])
+nastroi[2]=int(nastroi[2])
 try:
-    sock.bind(('', 80))
-    print("Using port 80")
+    sock.bind((nastroi[1], nastroi[0]))
+    print(f"Ваш адрес {nastroi[1]} {nastroi[0]}")
 except OSError:
-    sock.bind(('', 8080))
-    print("Using port 8080")
+    nastroi[0] = find_free_port(nastroi[1])
+    print('Ошибка. Выбранный вами код сервера уже занят, код сервера будет изменён автоматически. Новый код: ',nastroi[1], nastroi[0])
+    sock.bind(('', nastroi[0]))
+nastroi[0]=str(nastroi[0])
+log_nam = 'log_server'+nastroi[1]+'_'+str(nastroi[0])+'.txt'
+date=str(d.datetime.date(d.datetime.today()))
+try:
+    with open (log_nam, 'a') as f:
+        f.write(date+' '+nastroi[1]+' '+nastroi[0]+' admin Server activate\n')
+except FileNotFoundError:
+    with open (log_nam, 'w') as f:
+        f.write(date+' '+nastroi[1]+' '+nastroi[0]+' admin Server activate\n')
+sock.listen(1)
 
-sock.listen(5)
 
-conn, addr = sock.accept()
-print("Connected", addr)
 
-data = conn.recv(8192)
-msg = data.decode()
 
-print(msg)
+        
+        
 
-resp = """HTTP/1.1 200 OK
+class ConnectionW(threading.Thread):
+    def __init__(self, conn, addr, direct):
+        super().__init__(daemon=True)
+        self.conn = conn
+        self.addr = addr
+        self.ipe = str(addr)
+        self.hello()
+        self.direct=direct
+        #print(self.direct)
+        self.work_sun_is_high()
+        
+    def hello(self):
+        print("Connected", self.addr)
+        #self.conn.send(resp.encode('utf-8'))
+        #self.otprav("Hello, webworld!", 'system_mesage', 'text', 'non_error')
+    def work_sun_is_high(self):
+        while True:
+            try:
+                fl = self.conn.makefile('r')
+                #print(99)
+            except ConnectionAbortedError:
+                break
+            msg = fl.readline(nastroi[2]).split()[1]
+            #print(msg)
+            if msg == '/':
+                msg='/index.html'
+                typfi = 'html'
+            else:
+                try:
+                    typfi=msg.split('.')[-1]
+                except IndexError:
+                    typfi='-'
+            fl=os.path.join(self.direct, msg[1:])
+            #print(fl)
+            if os.path.exists(fl) == True:
+                if typfi == 'txt' or typfi == 'html':
+                    typfi='text/html'
+                    self.otprav(file_reader(fl), msg, typfi, 'non_error')
+                    '''elif typfi == 'img':#'''
+                    '''
+            Добавьте возможность запрашивать только определенные типы файлов 
+            (.html, .css, .js и так далее). При запросе неразрешенного типа, 
+            верните ошибку 403.
+            #'''
+                else:
+                    self.otprav("Error 403.  The format is not supported", msg, typfi, '403')
+            else:
+                self.otprav("Error 404. File not found", msg, typfi, '404')#'''
+    
+        self.conn.close()
+    def otprav(self, resp, msg, typfi, err):
+        date = str(d.datetime.date(d.datetime.today()))
+        logging(msg, err, date, self.ipe)
+        ln_res=len(resp)
+        resp = f"""HTTP/1.1 200 OK
 Server: SelfMadeServer v0.0.1
-Content-type: text/html
+Content-type: {typfi}
+Date: {date}
 Connection: close
+Date: {date}
+Content-length: {ln_res}
 
-Hello, webworld!"""
 
-conn.send(resp.encode())
+{resp}"""
+        self.conn.send(resp.encode('utf-8'))
 
-conn.close()
+
+direct=os.getcwd()
+while True:
+        #print(9)
+        try:
+            potok = ConnectionW(*sock.accept(), direct)
+            potok.start()
+        except:
+            continue

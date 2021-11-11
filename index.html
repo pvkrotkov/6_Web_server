@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="ru">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Task 1</title>
+  </head>
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&family=Roboto:wght@300;400;500;700&display=swap');
+
+.nav-link{
+    color: #FFFFFF !important;
+
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 2px;
+
+    /* margin-top: 79px; */
+    margin-left: 24px;
+    margin-right: 24px;
+
+
+}
+
+.nav-item a::after{
+    content: "";
+    display: block;
+    width: 18px;
+    background-color: #4CAF50;
+    height: 2px;
+    transition: all .3s;
+
+}
+
+
+.nav-item a:hover::after{
+    content: "";
+    display: block;
+    width: 100%;
+    background-color: #4CAF50;
+    height: 2px;
+}
+
+
+.carousel{
+    position:absolute;
+    width:100%;
+    top:0;
+}
+
+
+
+.navbar {
+    position: absolute;
+    top: 6%;
+    right: 13%;
+    z-index: 2;
+}
+
+.button{
+    padding:0px 30px;
+}
+
+.text_block{
+    margin-bottom: 26%;
+}
+
+.main_title{
+
+    font-family: Oswald;
+    font-weight: 500;
+    font-size: 72px;
+    font-size: calc(16px + 56 *(100vw / 1800));
+    line-height: 107px;
+    line-height: calc(22px + 85*(100vw/1800));
+    letter-spacing: 4.6px;
+
+    text-align: center;
+
+
+    color: #FFFFFF;
+    margin-bottom: 22px;
+    margin-bottom: calc(10px + 12 *(100vw/1800));
+}
+
+.main_title_low{
+    font-family: Open Sans;
+    font-size: 20px;
+    font-size: calc(5px + 15 *(100vw / 1800));
+    font-weight: 400;
+    line-height: 27px;
+    line-height: calc(7px + 20*(100vw/1800));
+    letter-spacing: 1.3px;
+    text-align: center;
+
+
+    color: #FFFFFF;
+
+    margin-top: 23px;
+    margin-top: calc(10px + 12 *(100vw/1800));
+}
+
+
+.carousel-indicators [data-bs-target] {
+    font-family: Oswald;
+    font-weight: 700;
+    font-size: 15px;
+    height: 0px;
+    color: white;
+    text-indent: -85%;
+    margin-bottom: 10px;
+
+    }
+.carousel-indicators .active{
+
+    font-size: 30px;
+
+    text-indent: -105%;
+    margin-top: -15px;
+    text-align: center;
+    border-bottom: 2px solid #4CAF50;
+    line-height: 0.05em;
+    margin: 5px 5px 20px;
+    }
+
+
+
+
+.first_page{
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+
+.white_page{
+    background-color: #FFFFFF;
+}
+
+.man_leg{
+    width: max-content;
+    height: max-content;
+    position: absolute;
+    top: 65%;
+    left: 52%;
+    z-index: 0;
+}
+
+.man_head{
+    width: max-content;
+    height: max-content;
+    position: relative;
+    margin-top: 15%;
+    left: 19%;
+    z-index: 2;
+}
+
+.we_are{
+    font-family: Oswald;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 53px;
+    letter-spacing: 2.304px;
+
+    color: #333333;
+
+
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    z-index: 3;
+}
+
+.the_sqwd{
+    font-family: Open Sans;
+    font-weight: 300;
+    font-size: 42px;
+    line-height: 57px;
+    letter-spacing: 2.688px;
+
+    color: #504E4E;
+
+    position: absolute;
+    top: 55%;
+    left: 5%;
+    z-index: 3;
+}
+
+.some_text{
+    font-family: Open Sans;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 25px;
+
+
+
+    letter-spacing: 1.26px;
+
+
+    color: #5B5858;
+
+
+    width: 25%;
+    height: 30%;
+
+    position: absolute;
+    top: 70%;
+    left: 9%;
+    z-index: 3;
+}
+
+.green_box{
+    width: 309px;
+    height: 418px;
+
+    background: #4CAF50;
+    opacity: 0.8;
+
+    position: absolute;
+    top: 45%;
+    left: 36%;
+    z-index: 1;
+}
+
+.some_text2{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 25px;
+
+
+
+    letter-spacing: 1.26px;
+
+
+    color: #5B5858;
+
+
+    width: 25%;
+    height: 30%;
+    position: absolute;
+    top: 110%;
+    left: 74%;
+    z-index: 3;
+}
+
+.grey_background{
+    background-color: #FBFBFB;
+    position: relative;
+    margin-top: 00px;
+    width: 100%;
+}
+
+.our_services{
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 71px;
+    margin-top: 10%;
+    margin-bottom: 0%;
+
+    width: max-content;
+    letter-spacing: 3.072px;
+
+    color: #252525;
+
+}
+
+.our_services::after{
+    content: "";
+    display: block;
+    width: 45px;
+    margin-top: 1%;
+    background-color: #252525;
+    height: 2px;
+    transition: all .3s;
+
+}
+
+.our_services:hover::after{
+    content: "";
+    display: block;
+    width: 100%;
+    margin-top: 1%;
+    background-color: #252525;
+    height: 2px;
+}
+
+.cardd{
+    background: #FFFFFF;
+    margin-top: 25%;
+    }
+
+.cardd::after{
+    content: "";
+    display: block;
+    width: 100%;
+    background-color: #70BF73;
+    height: 3px;
+    margin-top: 10px;
+    transform: scale(0);
+    transition: all .3s;
+    }
+
+.cardd:hover:after{
+    content: "";
+    display: block;
+    width: 100%;
+    background-color: #70BF73;
+    height: 3px;
+    margin-top: 10px;
+    transform: scale(1);
+    }
+
+.txt_card_title {
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    width: max-content;
+
+    color: #252525;
+
+    margin-top: 13%;
+    margin-left: 13%;
+    }
+
+.txt_card_title::after{
+    content: "";
+    display: block;
+    width: 18px;
+    background-color: #252525;
+    height: 2px;
+    margin-top: 10px;
+    transition: all .3s;
+
+    }
+
+.txt_card_title:hover:after{
+    content: "";
+    display: block;
+    width: 100%;
+    background-color: #252525;
+    height: 2px;
+    margin-top: 10px;
+    }
+
+.card_text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 25px;
+    /* or 208% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 1.008px;
+    margin-left: 13%;
+
+    width: 281px;
+    height: 75px;
+    color: #777777;
+    }
+
+.more {
+
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 10px;
+    line-height: 15px;
+    margin-bottom: 9%;
+    margin-left: 13%;
+
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.64px;
+    text-transform: uppercase;
+
+    color: #252525;
+
+    mix-blend-mode: normal;
+    opacity: 0.5;
+
+    transition: all .3s;
+    }
+
+.more:hover:hover{
+    opacity: 1;
+}
+
+
+
+.latest_works {
+
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 71px;
+    width: max-content;
+
+    letter-spacing: 3.072px;
+    margin-top: 5%;
+
+    color: #252525;
+}
+.latest_works::after{
+    content: "";
+    display: block;
+    width: 45px;
+    background-color: #252525;
+    height: 2px;
+    transition: all .3s;
+
+}
+.latest_works:hover:after{
+    content: "";
+    display: block;
+    width: 100%;
+    background-color: #252525;
+    height: 2px;
+
+}
+
+.camera{
+
+    margin-top: 15%;
+    width: 455px;
+    height: 444px;
+    background: url(../images/camera.png);
+
+}
+.latests_works_bar {
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.832px;
+
+    opacity: 0.3;
+    color: #252525;
+
+    transition: all .3s;
+
+}
+
+.latests_works_bar:hover:hover {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.832px;
+
+    opacity: 1;
+    color: #252525;
+
+}
+.cat{
+
+    margin-top: 10%;
+    width: 455px;
+    height: 444px;
+
+    background: url(../images/cat.png);
+}
+.photography {
+
+    margin-top: 5%;
+
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 25px;
+
+    margin-left: 35%;
+
+
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    letter-spacing: 1.152px;
+
+    color: #252525;
+}
+.low_text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 23px;
+
+    display: flex;
+
+    text-align:left;
+    margin-left: 35%;
+
+    letter-spacing: 0.832px;
+
+    color: #C2C2C2;
+
+}
+.big_text{
+
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 48px;
+    line-height: 71px;
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 3.072px;
+
+    color: #252525;
+}
+.computer {
+
+    margin-top: 10%;
+    width: 455px;
+    height: 444px;
+
+
+    background: url(../images/computer.png);
+}
+.mac {
+
+    margin-top: 10%;
+    width: 455px;
+    height: 444px;
+
+
+    background: url(../images/mac.png);
+}
+
+.view_more{
+
+    width: 65px;
+    height: 19px;
+
+
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 19px;
+    text-align: right;
+    float: right;
+    color: #252525;
+}
+
+
+.name{
+    text-align: center;
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+    letter-spacing: 1.152px;
+    text-align: center;
+    margin-top: 4%;
+
+    color: #252525;
+    opacity: 1;
+
+
+}
+
+.name_line{
+    text-align: center;
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+
+    letter-spacing: 1.152px;
+    text-align: center;
+    margin-top: 4%;
+
+    color: #252525;
+    opacity: 1;
+}
+
+.name_line::after{
+    content: "";
+    display: block;
+    width: 20%;
+    background-color: #252525;;
+    height: 2px;
+    margin-top: 5%;
+    text-align: center;
+    align-items: center;
+    position: relative;
+    left: 40%;
+}
+
+.name_container{
+    display: block;
+    width: 100%;
+    height: max-content;
+
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+
+    text-align: center;
+
+
+    background: rgba(255,255,255,0.5);
+    transform: translateY(calc(100% - 53px) );
+    transition: all 0.8s;
+
+}
+
+.name_container:hover:hover{
+    transform: translateY(0%);
+    cursor: pointer;
+}
+
+.message{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 25px;
+
+    text-align: center;
+    letter-spacing: 1.008px;
+
+    color: #777777;
+
+}
+
+.white_background {
+    margin-top: 10%;
+    height: 300px;
+    width: 100%;
+    background: #FBFBFB;
+    padding-right: 0%;
+}
+.green_background {
+    margin-top: 10%;
+    height: 300px;
+    width: 100%;
+    background: #70BD59;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+.black_background{
+
+    width: 100%;
+    height: 339px;
+    background: #2E2E2E;
+}
+.work {
+
+    margin-top: 5%;
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 36px;
+
+    color: #373737;
+}
+.low_txt_work{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+
+
+    color: #373737;
+
+    mix-blend-mode: normal;
+    opacity: 0.8;
+}
+.contanct {
+    margin-top: 5%;
+
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 36px;
+
+    color: #FFFFFF;
+}
+.low_txt_contact {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+
+
+    color: #FFFFFF;
+
+    opacity: 0.8;
+}
+.low_tab_background {
+
+    height: 58px;
+    background: #252525;
+    text-align: center;
+    align-items: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.bottom_text {
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 19px;
+    text-align: center;
+    align-items: center;
+    vertical-align: center;
+    color: #FFFFFF;
+
+    opacity: 0.5;
+}
+
+
+.team_card{
+    position: relative;
+    width: max-content;
+    height:max-content;
+    background: #FBFBFB;
+    margin-top: 25%;
+    overflow: hidden;
+
+}
+
+.review_text{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 31px;
+    /* or 221% */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.896px;
+
+    color: #373737;
+
+}
+
+.review{
+
+    text-align: center;
+    align-items: center;
+    width: 60%;
+    margin-bottom: 15%;
+    margin-top: 15%;
+}
+
+
+.review::after{
+    content: "";
+    display: block;
+    width: 50%;
+    background-color: #D8D8D8;;
+    opacity: 0.5;
+    height: 1px;
+    margin-top: 30px;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    left: 26%;
+}
+
+.person{
+    font-family: Oswald;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 27px;
+
+    text-align: center;
+    letter-spacing: 1.152px;
+
+    color: #373737;
+}
+
+.profession{
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 14,06px;
+    text-align: Center;
+    color: #373737;
+    opacity: 0.2;
+
+}
+
+.carousel_text{
+    margin-left: 20%;
+    text-align: center;
+    align-items: center;
+    margin-top: 15%;
+    margin-bottom: 15%;
+}
+
+.prev_next_buttons{
+    margin-top: 130%;
+    opacity: 0.5;
+}
+
+.prev_next_buttons::after{
+    opacity: 1;
+}
+  </style>
+    <body>
+        <div class="container">
+            <div class="row" >
+                <div class="col">
+                    <div>
+                        <header>
+                            <div class="container">
+                                <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top ">
+                                    <div class="container-fluid">
+                                        <button class="navbar-toggler" style="background-color: #FFFFFF;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                            <span class="navbar-toggler-icon" style="position: relative; top: 0; left: 0;"></span>
+                                        </button>
+                                    </div>
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul class="navbar-nav ms-auto">
+
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="#">WORKS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="#">ABOUT</a>
+                                        </li>
+                                        
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="#">SERVICES</a>
+                                        </li>
+                    
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="#">BLOG</a>
+                                        </li>
+                    
+                                        <li class="nav-item">
+                                                <a class="nav-link" href="#">CONTACT</a>
+                                        </li>
+                                        
+                                        </ul>
+                                    </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        </header>
+                    </div>
+                </div> 
+            </div>    
+        </div>    
+
+        <div>
+            <div id="carousel" class="carousel slide first_page" data-bs-ride="carousel" style="width: 100%;">
+                <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active"><span class="button">01</span></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" ><span class="button">02</span></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" ><span class="button">03</span></button>
+                </div>
+
+
+
+          
+
+
+                
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="1000">
+                        <img src="images/head_background.svg" class="d-block w-100" alt="...">
+                        <div class="container">
+                            <div class="carousel-caption text-start">
+                                <div class="text_block">
+                                    <p class="main_title">WHERE GREAT IDEAS COME TO LIFE</p>
+                                    <p class="main_title_low">Passionate creative studio helping startups grow their business!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="1000">
+                        <img src="images/head_background.svg" class="d-block w-100" alt="...">
+                        <div class="container">
+                            <div class="carousel-caption text-start">
+                                <div class="text_block">
+                                    <p class="main_title">WHERE GREAT IDEAS COME TO LIFE</p>
+                                    <p class="main_title_low">Passionate creative studio helping startups grow their business!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="1000">
+                        <img src="images/head_background.svg" class="d-block w-100" alt="...">
+                        <div class="container">
+                            <div class="carousel-caption text-start">
+                                <div class="text_block">
+                                    <p class="main_title">WHERE GREAT IDEAS COME TO LIFE</p>
+                                    <p class="main_title_low">Passionate creative studio helping startups grow their business!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="margin-top: 100px;">
+            <div class="row">
+                <div class="col">
+                        <div class="white_page">
+                            <div class="container" style="position: relative;">
+                                        <p class="we_are">WE ARE</p>
+                                        <p class="the_sqwd">THE SQWD</p>
+                                        <p class="some_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                        <img src="images/man_head.svg" class="man_head">
+                                        <div class="green_box"></div>
+                                        <img src="images/man_leg.svg" class="man_leg">
+                                        <p class="some_text2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>      
+                            </div>
+            
+                        </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="grey_background">
+            <div class="container" style="margin-top: 400px">
+                <div class="row">
+                    <div class="col">
+                        <p class="our_services">Our services</p>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="cardd" >
+                                            <div class="row">
+                                                <div class="col"><p class="txt_card_title" >Branding</p></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><p class="card_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p></div>
+                                         </div>
+                                            <div class="row">
+                                                <div class="col"><p class="more">READ MORE</p></div>
+                                            </div>
+                                
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="cardd" >
+                                            <div class="row">
+                                                <div class="col"><p class="txt_card_title">Design</p></div>
+                                            </div>
+                                            <div class="row">
+                                                 <div class="col"><p class="card_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><p class="more">READ MORE</p></div>
+                                            </div>
+                                
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="cardd" style="margin-bottom: 30%;">
+                                            <div class="row">
+                                                <div class="col"><p class="txt_card_title" >Development</p></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><p class="card_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col"><p class="more">READ MORE</p></div>
+                                            </div>
+                                
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <div>
+            <div class="container" style="margin-top:100px">
+                <div class="row">
+                    <div class="col">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="latest_works">Latest Works</p>
+                                        <div class="container">
+                                            <div class="row row-cols-auto" style="margin-top:17%;margin-left: -35px;">
+                                                <div class="col latests_works_bar"><p>ALL</p></div>
+                                                <div class="col latests_works_bar"><p>WEB DESIGN</p></div>
+                                                <div class="col latests_works_bar"><p>BRANDING</p></div>
+                                                <div class="col latests_works_bar"><p>PHOTOGRAPHY</p></div>
+                                                <div class="col latests_works_bar"><p>ILLUSTRATION</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="cat">
+                                                        <div class="container">
+                                                            <div class="row"> 
+                                                                <div class="col">
+                                                                    <p class="big_text">A KITTEN’S LIFE</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p class="photography">Photography</p>
+                                                        <p class="low_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col" >
+                        <div class="container" style="margin-left: 10%;">
+                            <div class="row" >
+                                <div class="col">
+                                    <div class="camera">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p class="big_text">100 YEARS</p>
+                                                    <p class="big_text">PHOTOGRAPHY</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="photography" style="margin-right: 10%;">Photography</p>
+                                    <p class="low_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <div class="container" style="margin-left: 7%;margin-top: 20%;">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mac">
+                                        <div class="container">
+                                            <div class="row"> 
+                                                <div class="col">
+                                                    <p class="big_text">APPLE’S</p>
+                                                    <p class="big_text">LOST MAGIC</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <p class="photography" style="margin-left: 35%;">Photography</p>
+                                        <p class="low_text"style="text-align:left;margin-left: 35%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="margin-top:0;margin-left: 9%;">
+                        <div class="container">
+                            <div class="row" >
+                                <div class="col">
+                                    <div class="computer">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p class="big_text">GROOVEMADE
+                                                        PRODUCTS FOR MAC</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="photography">Photography</p>
+                                    <p class="low_text" style="margin-right: 35%;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                        <div class="container" align="right" style="margin-bottom:0%;">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="view_more">view more</p>
+                                </div>
+                            </div>
+            </div>
+        </div>
+    
+
+        <div class="grey_background">
+            <div class="container" >
+                <div class="row">
+                    <div class="col">
+                        <p class="our_services">The team</p>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="team_card">
+                                            <img src="images/man_1.png">
+                                            <div class="name_container">
+                                                <p class="name_line">Tom Jones</p>
+                                                <p class="name">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione id doloribus nihil quam similique ab quasi, explicabo autem fugiat et, ut voluptates labore, voluptas dolores repellendus ad laudantium impedit nesciunt!</p>
+                                                <p class="message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ullam nihil eaque nostrum accusamus quas vero, natus vel, error omnis numquam quasi sit maxime, minima sequi alias. Repellendus, nobis temporibus.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="team_card" >
+                                            <img src="images/man_2.png">
+                                            <div class="name_container">
+                                                <p class="name_line">Michael Fraup</p>
+                                                <p class="name">Creative director</p>
+                                                <p class="message">Create with simplicity in mind!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="team_card" style="margin-bottom: 30%;">
+                                            <img src="images/man_3.png">
+                                            <div class="name_container">
+                                                <p class="name_line">Tim Cahill</p>
+                                                <p class="name">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus asperiores tempore rerum dolore, repellendus nostrum eveniet hic laborum iure officia velit vero sint ratione id laboriosam non rem ipsa fuga.</p>
+                                                <p class="message">Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque voluptas alias officia iste eum exercitationem velit quas adipisci corrupti reprehenderit laudantium impedit similique non, architecto voluptate magnam ea illo esse.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+
+        <div class="container" style="margin-top: 0%;">
+            <div class="row">
+                <div class="col">
+
+                    <div style="position: relative; background-color: #F2F2F2;">
+        
+                        <div id="carouselExampleCaptions" class="carousel carousel-dark slide"  data-bs-ride="carousel">
+
+
+                            <div class="carousel-inner" style="width: 100%; height: max-content;">
+                                <div class="carousel-item active" style="text-align: center; align-items: center;position: relative;" >
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="container carousel_text">
+                                                    <div class="review">
+                                                        <p class="review_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                                        <img src="images/99.png" style="margin-top: 15px;">
+                                                        <div style="margin-top: 29px;"><span class="person">DAVID JAMES </span><span class="profession">&#47; Web Design</span></div>
+                                                        <div style="margin-top: 25px;">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png" style="opacity: 0.2;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carousel-item " style="text-align: center; align-items: center;position: relative;" >
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="container carousel_text">
+                                                        <div class="review">
+                                                            <p class="review_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                                            <img src="images/99.png" style="margin-top: 15px;">
+                                                            <div style="margin-top: 29px;"><span class="person">DAVID JAMES </span><span class="profession">&#47; Web Design</span></div>
+                                                            <div style="margin-top: 25px;">
+                                                                <img src="images/star.png">
+                                                                <img src="images/star.png">
+                                                                <img src="images/star.png">
+                                                                <img src="images/star.png">
+                                                                <img src="images/star.png" style="opacity: 0.2;">
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="carousel-item " style="text-align: center; align-items: center;position: relative;" >
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="container carousel_text">
+                                                    <div class="review">
+                                                        <p class="review_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                                        <img src="images/99.png" style="margin-top: 15px;">
+                                                        <div style="margin-top: 29px;"><span class="person">DAVID JAMES </span><span class="profession">&#47; Web Design</span></div>
+                                                        <div style="margin-top: 25px;">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png">
+                                                            <img src="images/star.png" style="opacity: 0.2;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+        
+                            </div>
+
+
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                            <span aria-hidden="true" class="prev_next_buttons"><img src="images/prev.png" alt=""></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                            <span aria-hidden="true" class="prev_next_buttons"><img src="images/next.png" alt=""></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div style="margin-top: 600px; width: 100%;">
+                <div class="row" style="width: 100%; margin-left: 0%;">
+                    <div class="col-6" style="padding-left: 0%; padding-right: 0%;">
+                        <div class="white_background">
+                            <div align=center><img src="images/case.png" style="margin-top: 10%;"></div>
+                            <p align=center class="work">Want to work together?</p>
+                            <p align=center class="low_txt_work">Amazing. Tell us about your project!</p>
+                        </div>
+                    </div>
+                    <div class="col-6" style="padding-left: 0%; padding-right: 0%;">
+                        <div class="green_background">
+                            <div align=center><img src="images/mail.png" style="margin-top: 10%;"></div>
+                            <p align=center class="contanct">Contanct us</p>
+                            <p align=center class="low_txt_contact">Get in touch</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="width: 100%; margin-left: 0%;">
+                    <div class="col" style="padding-left: 0%; padding-right: 0%;">
+                        <div class="black_background">
+                            <div class="container">
+                                <div class="row" style="width: 100%; margin-left: 0%;">
+                                    <div class="col">
+                                        <p class="bottom_text"style="margin-top:10%">3rd Floor, Santa Monica Beach, CA, San Francisco</p>
+                                        <p class="bottom_text">(359) 0 123 456 789 - info@yourmail.com</p>
+                                    </div>
+                                <div class="row" style="width: 100%; margin-left: 0%;">
+                                    <div class="col" align=center>
+                                        <img src="images/fb.png">
+                                        <img src="images/twitter.png" style="margin-left:15px">
+                                        <img src="images/pinterest.png" style="margin-left:15px">
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="low_tab_background">
+                        <div style="width: 100%; margin-left: 0%; text-align: center;align-items: center; position: absolute; top: 33%;">
+                                <div style="text-align: center;align-items: center;"> 
+                                    <p class="bottom_text">Copyright 2016 - All Rights Reserved - Designed by JD</p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+        
+
+
+
+
+
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    </body>
+</html>

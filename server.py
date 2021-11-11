@@ -3,7 +3,7 @@ from threading import Thread
 from datetime import datetime
 
 SERVER_HOST = '127.0.0.1'
-SERVER_PORT = 8080
+SERVER_PORT = 80
 
 
 def handle_request(client_connection, client_address):

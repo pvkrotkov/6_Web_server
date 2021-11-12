@@ -1,31 +1,48 @@
+import os
 import socket
+from threading import Thread
+import os
 
-sock = socket.socket()
+class Server():
 
-try:
-    sock.bind(('', 80))
-    print("Using port 80")
-except OSError:
-    sock.bind(('', 8080))
-    print("Using port 8080")
+    def __init__(self):
+        self.ip = ''
 
-sock.listen(5)
+    def connection(self, conn, max_con = 13333):
+        with conn:
+            data = conn.recv(max_con)
+            msg = data.decode()
+            print(msg)
+            resp = self.response()
+            conn.send(resp)
 
-conn, addr = sock.accept()
-print("Connected", addr)
+    def response(self):
+        ROOT_DIR = os.path.abspath(os.getcwd())
+        file = 'index\index2.html'
+        if os.path.exists(ROOT_DIR + os.sep + file):
+            with open(ROOT_DIR + os.sep + file, "rb") as file:
+                text = file.read()
+            return text
 
-data = conn.recv(8192)
-msg = data.decode()
+    def sock_accept(self, socket):
+        while True:
+            conn, self.ip = socket.accept()
+            print("Connected", self.ip)
+            Thread(target=self.connection, args=[conn]).start()
 
-print(msg)
+    def main(self):
+        with socket.socket() as s:
+            try:
+                s.bind(('', 80))
+                print("Using port 80")
+            except OSError:
+                s.bind(('', 8080))
+                print("Using port 8080")
+            else:
+                s.listen(5)
+                self.sock_accept(s)
 
-resp = """HTTP/1.1 200 OK
-Server: SelfMadeServer v0.0.1
-Content-type: text/html
-Connection: close
 
-Hello, webworld!"""
 
-conn.send(resp.encode())
-
-conn.close()
+s = Server()
+s.main()

@@ -23,7 +23,6 @@ resp = """HTTP/1.1 200 OK
 Server: SelfMadeServer v0.0.1
 Content-type: text/html
 Connection: close
-
 Hello, webworld!"""
 
 conn.send(resp.encode())

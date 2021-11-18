@@ -1,5 +1,7 @@
 import socket
+import datetime
 
+date = datetime.datetime.now()
 sock = socket.socket()
 
 try:
@@ -24,7 +26,13 @@ Server: SelfMadeServer v0.0.1
 Content-type: text/html
 Connection: close
 
-Hello, webworld!"""
+Hello, webworld! """ + str(date) + " Content-type: text/html " + "Server: SelfMadeServer v0.0.1 " + str(len(msg)) + " Connection: close"
+
+conn, addr = sock.accept()
+print("Connected", addr)
+data = conn.recv(8192)
+msg = data.decode()
+print(msg)
 
 conn.send(resp.encode())
 

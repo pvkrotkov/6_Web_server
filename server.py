@@ -1,31 +1,108 @@
-import socket
+from socket import socket
+from threading import Thread, Lock
+from datetime import datetime
 
-sock = socket.socket()
+'''
+To launch the program you need to run server.py file and then type <localhost:8080> in your web
+you can change host in server_config file
+'''
 
-try:
-    sock.bind(('', 80))
-    print("Using port 80")
-except OSError:
-    sock.bind(('', 8080))
-    print("Using port 8080")
+class Client(Thread):
+    def __init__(self, addr, conn):
+        Thread.__init__(self, name=str(addr[0]) + " " + str(addr[1]))   #creating thread for each client
+        self.host = addr[0]       #defining host
+        self.port = addr[1]       #defining port
+        self.conn = conn
 
-sock.listen(5)
+    def run(self):
+        """Server start"""
+        request = self.conn.recv(DATA_SIZE).decode()
+        if request != '':
+            print(request)
 
-conn, addr = sock.accept()
-print("Connected", addr)
+            #split the request by lines
+            headers = request.split('\n')
+            webpage = headers[0].split()[1]
+            if webpage == '/':
+                webpage = '/index.html'       #try "Coding.png" or "1.html"
+            elif '.' not in webpage:         #if the webpage is not and index.html file then add .html to create a page, try coding.png instead of index.html to check it!
+                webpage += '.html'
 
-data = conn.recv(8192)
-msg = data.decode()
+            #check the right format
+            if webpage.split('.')[-1] in FILES:
+                try:
+                    try:
+                        with open(DEFAULT_FOLDER + webpage, 'r') as f:
+                            content = f.read()
+                        response = """HTTP/1.1 200 OK
+                                Server: WebServer
+                                Content-type: text/html
+                                Content-length: 5000
+                                Connection: close\n\n""" + content
+                    except UnicodeDecodeError:
+                        # Binary code error
+                        with open(DEFAULT_FOLDER + webpage, 'rb') as f:
+                            content = f.read()
+                        response = """HTTP/1.1 200 OK
+                                Server: WebServer
+                                Content-type: image/png
+                                Content-length: 5000
+                                Connection: close\n\n"""
+                    #write down the info about the user into a log.txt file
+                    with lock:
+                        with open('log/log.txt', 'a+') as log:
+                            log.write(str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")) + ' || ' + self.host
+                                      + ' || ' + webpage + ' || None\n')
+                except FileNotFoundError:
+                    # Error 404 case
+                    response = 'HTTP/1.0 404 NOT FOUND\n\nPage Not Found!'
+                    with lock:
+                        with open('log/log.txt', 'a+') as log:
+                            log.write(str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")) + ' || ' +
+                                      self.host + ' || ' + webpage + ' || 404\n')
+            else:
+                
+                if webpage.split('.')[-1] != "ico":
+                    response = 'HTTP/1.0 403 FORBIDDEN\n\nForbidden Error!'
+                    with lock:
+                        with open('log/log.txt', 'a+') as log:
+                            log.write(str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")) + ' || ' +
+                                      self.host + ' || ' + webpage + ' || 403\n')
+            if "Content-type: image/png" in response:
+                self.conn.sendall(response.encode()+content)
+            else:
+                self.conn.sendall(response.encode())
+        self.conn.close()
 
-print(msg)
 
-resp = """HTTP/1.1 200 OK
-Server: SelfMadeServer v0.0.1
-Content-type: text/html
-Connection: close
+config = {}
+with open('server_config.txt', 'r') as f:
+    for i in f.readlines():
+        config[i.split("=")[0]] = i.split("=")[1]
 
-Hello, webworld!"""
+SERVER_HOST = config['DEFAULT_HOST'].strip()
+SERVER_PORT = int(config['DEFAULT_PORT'])
+DATA_SIZE = int(config['DATA_SIZE'])
+DEFAULT_FOLDER = config['DEFAULT_FOLDER'].strip()
 
-conn.send(resp.encode())
+FILES = ['html', 'js', 'png', 'jpg', 'jpeg']
 
-conn.close()
+sock = socket()
+sock.bind((SERVER_HOST, SERVER_PORT))
+sock.listen(3)
+lock = Lock()
+
+clients = []
+while True:
+    try:
+        conn, addr = sock.accept()
+        clients.append(Client(addr, conn))
+        clients[-1].start()
+
+        for cl in clients:
+            if not cl.is_alive():
+                clients.remove(cl)
+    except:
+        break
+
+sock.close()

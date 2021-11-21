@@ -1,31 +1,55 @@
 import socket
+from threading import Thread
+from datetime import datetime
 
-sock = socket.socket()
+SERVER_HOST = '127.0.0.1'
+SERVER_PORT = 80
 
-try:
-    sock.bind(('', 80))
-    print("Using port 80")
-except OSError:
-    sock.bind(('', 8080))
-    print("Using port 8080")
 
-sock.listen(5)
+def handle_request(client_connection, client_address):
 
-conn, addr = sock.accept()
-print("Connected", addr)
+    request = client_connection.recv(8192).decode()
+    print(f'Request: \n{request}')
 
-data = conn.recv(8192)
-msg = data.decode()
+    headers = request.split('\n')
+    filename = headers[0].split()[1]
+    if filename == '/':
+        filename = 'index.html'
 
-print(msg)
+    try:
+        page = open('pages/' + filename)
+        content = page.read()
+        page.close()
 
-resp = """HTTP/1.1 200 OK
-Server: SelfMadeServer v0.0.1
-Content-type: text/html
-Connection: close
+        headers = f'HTTP/1.1 200 OK\n\
+        Server: SelfMadeServer v0.0.1\n\
+        Date: {datetime.now()}\n\
+        Content-Type: text/html; charset=utf-8\n\
+        Connection: close\n\n'
 
-Hello, webworld!"""
+        response = headers + content
+    except FileNotFoundError:
+        response = 'HTTP/1.0 404 NOT FOUND\n\nFile Not Found'
 
-conn.send(resp.encode())
+    client_connection.sendall(response.encode())
 
-conn.close()
+
+def main():
+
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((SERVER_HOST, SERVER_PORT))
+
+
+    print(f'Listening on port {SERVER_PORT}')
+    server_socket.listen(5)
+
+    client_connection, client_address = server_socket.accept()
+
+    user_thread = Thread(target=handle_request, args=(client_connection, client_address))
+    user_thread.start()
+
+    server_socket.close()
+
+
+if __name__ == '__main__':
+    main()

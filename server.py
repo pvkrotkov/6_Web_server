@@ -1,31 +1,36 @@
 import socket
+from threading import Thread
+import time
 
-sock = socket.socket()
-
-try:
+def create_server():
+    #создание сервера и привязка его к порту
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(('', 80))
     print("Using port 80")
-except OSError:
-    sock.bind(('', 8080))
-    print("Using port 8080")
+    print("Ура, сервер  запущен!")
+    sock.listen(5)
+    conn, addr = sock.accept()
+    thread = Thread(target=web_page, args=(conn,addr,))
+    thread.start()
+    
+def web_page(conn, addr):
+    print('кто присоединился:',addr)
 
-sock.listen(5)
+    datetime = time.asctime(time.gmtime()).split(' ')
+    datetime = f'{datetime[0]}, {datetime[2]} {datetime[1]} {datetime[4]} {datetime[3]}'
+    print("Дата: ",datetime)
+    resp = f'HTTP/1.1 200 OK\nServer: SelfMadeServer v0.0.1\nDate: {datetime}\nContent-Type: text/html; charset=utf-8\nConnection: close\n\n'
+    user = conn.recv(1024).decode()
+    res = user.split(" ")[1]
 
-conn, addr = sock.accept()
-print("Connected", addr)
+    #Чтение файла
+    if res=='/' or res=='/index.html':
+        with open('index.html', 'rb') as f:
+            answer = f.read()
+            conn.send(resp.encode('utf-8')+answer)
 
-data = conn.recv(8192)
-msg = data.decode()
+    else:
 
-print(msg)
-
-resp = """HTTP/1.1 200 OK
-Server: SelfMadeServer v0.0.1
-Content-type: text/html
-Connection: close
-
-Hello, webworld!"""
-
-conn.send(resp.encode())
-
-conn.close()
+        conn.send(("""HTTP/1.1 200 OK
+        NOT FOUND.ERROR 404""").encode('utf-8'))
+create_server()

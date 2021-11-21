@@ -68,10 +68,6 @@ def find_free_port(ip_set):
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         return s.getsockname()[1]
 
-def editor():
-    f.write(date + ' ' + customs[1] + ' ' + customs[0] + ' Server is running\n')
-    print(f'Начата запись в лог!')
-
 customs = []
 with open('settings.txt', 'r') as f:
     for i in f:
@@ -97,14 +93,13 @@ date = str(c_data.datetime.date(c_data.datetime.today()))
 try:
 
     with open(log_name, 'a') as f:
-        editor()
-
+       f.write(date+' '+nastroi[1]+' '+nastroi[0]+' admin Server activate\n')
+       print('Начата запись в лог файл')
 except FileNotFoundError:
-
     with open(log_name, 'w') as f:
-        editor()
+        f.write(date+' '+nastroi[1]+' '+nastroi[0]+' admin Server activate\n')
+        Print('Лог файл создан. Запись начата')
 sock.listen(1)
-
 
 def file_reader(name):
     file = open(name, 'r')

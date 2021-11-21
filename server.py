@@ -1,5 +1,6 @@
 import socket
 import datetime
+#Для отправки времени
 
 date = datetime.datetime.now()
 sock = socket.socket()
@@ -33,6 +34,8 @@ print("Connected", addr)
 data = conn.recv(8192)
 msg = data.decode()
 print(msg)
+
+#Единственный нюанс, я дважды отображаю в консоли содержание msg, но я сам хочу это оставить. P.S. Уберите строку print(msg)
 
 conn.send(resp.encode())
 

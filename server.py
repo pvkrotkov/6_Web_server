@@ -17,7 +17,7 @@ def locate(dec_inf,conn):
                 info=file.read()
                 to_encode=send_this+info
                 conn.send(to_encode.encode())
-        except FileNotFoundError:
+        except FileNotFoundError: # 3 доп задание
             with open('404.html','r') as err:
                 info=err.read()
                 to_encode=send_if_error+info

@@ -47,18 +47,3 @@ def server_starter():
 
 if __name__=='__main__':
     server_starter()
-    except OSError:
-        sock.bind(('', 8080))
-        print("Using port 8080")
-    sock.listen(5) # Прослушивание порта
-    while True:
-        try:
-            conn, addr = sock.accept() # Подтверждаем (принимаем) соединение
-            print("Connected", addr)
-            manipulator(conn)
-        except KeyboardInterrupt:
-            conn.close()
-            break
-
-if __name__=='__main__':
-    server_starter()

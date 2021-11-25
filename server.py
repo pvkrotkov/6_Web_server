@@ -6,7 +6,7 @@ import socketserver
 #my custom extended SimpleHTTPRequestHandler class with custom handler
 class HTTP_Server(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/media/sf/shared_folder': #set server directory. This is my directory!!!!
+        if self.path == '/media/sf_shared_folder': #set server directory. This is my directory!!!!
             self.path = 'index.html' #set html file to display
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
 

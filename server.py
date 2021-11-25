@@ -1,7 +1,7 @@
 import socket
 
 from threading import Thread
- import time
+import time
  def create_s():
     sock = socket.socket()
     sock.bind(('', 80))

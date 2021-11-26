@@ -4,8 +4,8 @@ sock = socket.socket() #создаём сокет
 
 def locate(dec_inf,conn):
     result=dec_inf.split('\n')[0].split()[1][1:] #вытаскиваем из запроса имя страницы
-    send_this=f'HTTP/1.1 200 OK\nServer: SelfMadeServer v0.0.1\nDate: {datetime.now().strftime("%a, %d %b %Y %H:%M:%S GTM")}\nContent-Type: text/html; \nConnection: close\n\n'
-    send_if_error=f'HTTP/1.1 400 ERROR \nServer:SelfMadeServer v0.0.1\nDate: {datetime.now().strftime("%a, %d %b %Y %H:%M:%S GTM")}\nContent-Type: text/html; \Connection: close \n\n'
+    send_this=f'HTTP/1.1 200 OK\nServer: SelfMadeServer v0.0.1\nDate: {datetime.now().strftime("%a, %d %b %Y %H:%M:%S GTM")}\nContent-Type: text/html; charset=utf-8\nConnection: close\n\n'
+    send_if_error=f'HTTP/1.1 400 ERROR \nServer:SelfMadeServer v0.0.1\nDate: {datetime.now().strftime("%a, %d %b %Y %H:%M:%S GTM")}\nContent-Type: text/html; charset=utf-8\nConnection: close \n\n'
     if not result:
         with open('index.html','r') as file:
             info=file.read() #читаем файл

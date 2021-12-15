@@ -1,0 +1,6 @@
+ADDRESS: "localhost"
+PORT: 80
+BUFFER: 8192
+HOMEDIR: static/html
+
+STATUSES: { 200: "Ok", 404: "File not found", 403: "Forbidden" }

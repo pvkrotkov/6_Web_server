@@ -1,4 +1,5 @@
 import socket
+from datetime import datetime
 
 sock = socket.socket()
 
@@ -17,14 +18,23 @@ print("Connected", addr)
 data = conn.recv(8192)
 msg = data.decode()
 
-print(msg)
+print(msg, end = '')
 
-resp = """HTTP/1.1 200 OK
+
+content = ''
+with open('index.html', 'r', encoding='utf-8') as f:
+    for line in f:
+        content += line
+content_length = len(content)
+
+resp = f"""HTTP/1.1 200 OK
+Date: {datetime.now()}
+Content-length: {content_length}
 Server: SelfMadeServer v0.0.1
-Content-type: text/html
+Content-type: text/html, charset = utf8
 Connection: close
 
-Hello, webworld!"""
+{content}"""
 
 conn.send(resp.encode())
 

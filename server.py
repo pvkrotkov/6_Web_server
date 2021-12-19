@@ -1,61 +1,122 @@
+import datetime
 import socket
-from datetime import datetime
-from pathlib import Path
-from wsgiref.handlers import format_date_time
-from threading import Thread
+import threading
+import logging
+from settings import *
+import os
+
+files_in_directory=os.listdir() #список файлов в директории
 
 
-ROOT = 'www'
+def process(conn, addr):
+    print("Connected", addr)
+
+    data = conn.recv(REQUEST_LENGTH)
+    msg = data.decode()
+
+    print(msg)
+    msg_ = msg.split(' ')
+    file=msg_[1][1:]
+    answer=''
+    resp=''
+
+    if '.' in file:
+        if file in files_in_directory and file.split('.')[1] in ALLOWED_FORMATS:
+            with open(file, 'r', encoding="UTF-8") as f:
+                answer = f.read()
+            size = os.path.getsize(file)
+
+            resp = f"""HTTP/1.1 200 OK
+			Date: {get_date()}
+			Server: SelfMadeServer v0.0.1
+			Content-length: {size}
+			Content-type: text/html
+			Connection: close
+
+			{answer}
+			"""
+        elif file not in files_in_directory:
+            file="404.html"
+            with open(file, 'r', encoding="UTF-8") as f:
+                answer = f.read()
+            size = os.path.getsize(file)
+
+            resp = f"""HTTP/1.1 200 OK
+            Date: {get_date()}
+   			Server: SelfMadeServer v0.0.1
+   			Content-length: {size}
+			Content-type: text/html
+            Connection: close
+
+            {answer}
+            """
+        elif file.split('.')[1]  not in ALLOWED_FORMATS:
+            file = "403.html"
+            with open(file, 'r', encoding="UTF-8") as f:
+                answer = f.read()
+            size = os.path.getsize(file)
+
+            resp = f"""HTTP/1.1 200 OK
+            Date: {get_date()}
+            Server: SelfMadeServer v0.0.1
+            Content-length: {size}
+            Content-type: text/html
+            Connection: close
+
+            {answer}
+            """
+
+    else:
+        file = "404.html"
+        with open(file, 'r', encoding="UTF-8") as f:
+            answer = f.read()
+        size = os.path.getsize(file)
+
+        resp = f"""HTTP/1.1 200 OK
+        Date: {get_date()}
+        Server: SelfMadeServer v0.0.1
+        Content-length: {size}
+        Content-type: text/html
+        Connection: close
+
+        {answer}
+        """
+
+    try:
+        resp_ = resp.split()
+        error_number = resp_[1]
+        serv_log.info(f"{get_date()} {addr} {file} {error_number}")
+
+    except Exception as e:
+        pass
 
 
-def get_timestamp():
-    return format_date_time(datetime.utcnow().timestamp())
+    conn.send(resp.encode())
+
+    conn.close()
 
 
-def get_body_length(body):
-    return len(body.encode())
+def get_date():
+    return datetime.datetime.now()
 
 
-def get_resource_path(request):
-    resource = request.split('\n')[0].split()[1][1:]
-    if not resource:
-        resource = 'index.html'
-    return Path(ROOT, resource)
+sock = socket.socket()
 
+try:
+    sock.bind(('', PORT))
+    print("Using port 80")
+except OSError:
+    sock.bind(('', 8080))
+    print("Using port 8080")
 
-def get_response(body):
-    return f"""HTTP/1.1 200 OK
-Date: {get_timestamp()}
-Server: SelfMadeServer v0.0.1
-Content-Type: text/html
-Content-Length: {get_body_length(body)}
-Connection: close
-{body}"""
+sock.listen(5)
 
+serv_log = logging.getLogger('log_')
+serv_log_handler = logging.FileHandler('server.log', encoding='UTF-8')
+serv_log_handler.setLevel(logging.INFO)
+serv_log.addHandler(serv_log_handler)
+serv_log.setLevel(logging.INFO)
 
-def handle(conn):
-    with conn:
-        request = conn.recv(8192).decode()
-        print(request)
-        resource_path = get_resource_path(request)
-        body = resource_path.read_text()
-        conn.send(get_response(body).encode())
-
-
-def _main():
-    with socket.socket() as sock:
-        try:
-            sock.bind(('', 80))
-            print("Using port 80")
-        except OSError:
-            sock.bind(('', 8080))
-            print("Using port 8080")
-        sock.listen()
-        while True:
-            conn, addr = sock.accept()
-            print("Connected", addr)
-            Thread(target=handle, args=[conn]).start()
-
-
-if __name__ == '__main__':
-    _main()
+while True:
+    conn, addr = sock.accept()
+    threading.Thread(target=process, args=[conn, addr]).start()

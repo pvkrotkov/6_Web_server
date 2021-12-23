@@ -1,31 +1,43 @@
 import socket
+import threading
 
-sock = socket.socket()
 
-try:
-    sock.bind(('', 80))
-    print("Using port 80")
-except OSError:
-    sock.bind(('', 8080))
-    print("Using port 8080")
+def start_my_server():
+    try:
+        # создание сервера
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # Привязываем сервер к порту
+        server.bind(('', 80))
+        server.listen(4)
+        while True:
+            print('Server is on work')
+            # Останавливающая операция (ждет подключения клиента)
+            client_socket, address = server.accept()
+            data = client_socket.recv(1024).decode('utf-8')
+            # данные из файла
+            content = load_page_from_request(data)
+            # отправка содержимого в браузер
+            client_socket.send(content)
+            client_socket.shutdown(socket.SHUT_WR)
+    except KeyboardInterrupt:
+        socket.close()
+        print('Shutdown it')
 
-sock.listen(5)
 
-conn, addr = sock.accept()
-print("Connected", addr)
+def load_page_from_request(request_data):
+    HDRS = 'HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n'
+    HDRS_404 = 'HTTP/1.1 404 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n'
+    print(request_data)
+    response = ''
+    # Чтение файла
+    try:
+        with open('index.html', 'rb') as file:
+            response = file.read()
+        return HDRS.encode('utf-8') + response
+    except:
+        # Отправка ошибки 404, если файл не найден
+        return (HDRS_404 + 'Page not found. Error: 404').encode('utf-8')
 
-data = conn.recv(8192)
-msg = data.decode()
 
-print(msg)
-
-resp = """HTTP/1.1 200 OK
-Server: SelfMadeServer v0.0.1
-Content-type: text/html
-Connection: close
-
-Hello, webworld!"""
-
-conn.send(resp.encode())
-
-conn.close()
+if __name__ == '__main__':
+    threading.Thread(target=start_my_server, args=()).start()
